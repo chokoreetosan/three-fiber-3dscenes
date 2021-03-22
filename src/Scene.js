@@ -2,14 +2,12 @@
 import { Canvas, useFrame, useLoader,useThree } from 'react-three-fiber'
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 import {useRef,useState, Suspense} from 'react'
-import  gLTF from './Barrel.glb'
-import Barrel from './Barrel'
 import Crate from './Crate'
 import Chair from './Chair';
 import styled from 'styled-components';
 import {PerspectiveCamera} from 'three'
 
-
+const newcamera = new PerspectiveCamera( 120, 1, 1, 1000 );
 const Scene = () => {
     const {
     gl,                           // WebGL renderer
@@ -28,13 +26,23 @@ const Scene = () => {
     forceResize,
   } = useThree()
 
-  const newcamera = new PerspectiveCamera( 45, 1, 1, 1000 );
-  scene.add( newcamera );
+
+  setDefaultCamera(newcamera)
+  let crates = [];
+  for(let x = -3;x < 3;x++){
+    for(let y = -3;y < 3;y++){
+    crates.push(
+      <Crate position={[(x*3),(y*3),-5]}/>
+    )
+    }
+  }
+
 return (
     <Suspense fallback={null}>
     <ambientLight />
      <pointLight position={[10, 10, 10]} />
-    <Crate position={[0,0,2]}/> 
+     {crates}
+    {/* <Crate position={[0,0,-3]}/>  */}
          {/* <Box position={[-1.2,0,0]} />  */}
     </Suspense>
 

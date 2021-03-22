@@ -2,8 +2,6 @@
 import { Canvas, useFrame, useLoader,useThree } from 'react-three-fiber'
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 import {useRef,useState, Suspense} from 'react'
-import  gLTF from './Barrel.glb'
-import Barrel from './Barrel'
 import Crate from './Crate'
 import Chair from './Chair';
 import styled from 'styled-components';
