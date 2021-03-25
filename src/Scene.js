@@ -1,7 +1,7 @@
 
 import { Canvas, useFrame, useLoader,useThree,useResource,extend } from 'react-three-fiber'
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
-import {useRef,useState, Suspense} from 'react'
+import {useRef,useState, Suspense,useEffect} from 'react'
 import Crate from './Crate'
 import Chair from './Chair';
 import styled from 'styled-components';
@@ -9,12 +9,13 @@ import {PerspectiveCamera, WebGLRenderer} from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 let newcamera = new PerspectiveCamera( 120, 1, 1, 1000 );
-let newrenderer = new WebGLRenderer();
+
 
 extend({OrbitControls});
+// extend({PerspectiveCamera})
 const Scene = () => {
     let {
-    gl:{domElement},                           // WebGL renderer
+    gl: {domElement}   ,                        // WebGL renderer
     scene,                        // Default scene
     camera,                       // Default camera
     raycaster,                    // Default raycaster
@@ -29,7 +30,8 @@ const Scene = () => {
     viewport,
     forceResize,
   } = useThree()
-
+  const cameraref = useRef();
+  const controlsref= useRef();
   let crates = [];
   for(let x = -3;x < 3;x++){
     for(let y = -3;y < 3;y++){
@@ -38,26 +40,18 @@ const Scene = () => {
     )
     }
   }
-  // setDefaultCamera(newcamera)
-  const CameraControls = () => {
-
-    domElement.appendChild(newrenderer.domElement)
-    const controls = useRef();
-    useFrame((state) => controls.current.update())
-    return <orbitControls ref={controls} args={[camera,domElement]} />
+  useEffect(() => void setDefaultCamera(cameraref.current), [])
+  function Camera(props) {
+    return <perspectiveCamera ref={cameraref} {...props} />
   }
-
 return (
   <>
-  <CameraControls />
-
+  <Camera position={[0,0,15]}/>
+  <orbitControls ref={controlsref} args={[camera,domElement]}/>
     <Suspense fallback={null}>
     <ambientLight />
      <pointLight position={[10, 10, 10]} />
-     
      {crates}
-    {/* <Crate position={[0,0,-3]}/>  */}
-         {/* <Box position={[-1.2,0,0]} />  */}
     </Suspense>
 </>
 
