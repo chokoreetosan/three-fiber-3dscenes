@@ -7,12 +7,13 @@ import Chair from './Chair';
 import styled from 'styled-components';
 import {PerspectiveCamera, WebGLRenderer} from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import {FlyControls} from 'three/examples/jsm/controls/FlyControls'
+import {FlyControls} from '@react-three/drei'
+// let newcamera = new PerspectiveCamera( 300, 1, 1, 1000 );
 
-let newcamera = new PerspectiveCamera( 120, 1, 1, 1000 );
 
-
-extend({OrbitControls});
-// extend({PerspectiveCamera})
+// extend({OrbitControls});
+// extend({FlyControls})
 const Scene = () => {
     let {
     gl: {domElement}   ,                        // WebGL renderer
@@ -36,18 +37,24 @@ const Scene = () => {
   for(let x = -3;x < 3;x++){
     for(let y = -3;y < 3;y++){
     crates.push(
-      <Crate position={[(x*3),(y*3),-5]}/>
+      <Crate key={x + y*6} position={[(x*3),(y*3),-5]}/>
     )
     }
   }
   useEffect(() => void setDefaultCamera(cameraref.current), [])
   function Camera(props) {
-    return <perspectiveCamera ref={cameraref} {...props} />
+    return <perspectiveCamera ref={cameraref} {...props} far={200}/>
   }
 return (
   <>
-  <Camera position={[0,0,15]}/>
-  <orbitControls ref={controlsref} args={[camera,domElement]}/>
+  <Camera position={[0,0,10]}/>
+  <FlyControls 
+  ref={controlsref}
+   autoForward={false}
+        dragToLook={false}
+        movementSpeed={5.0}
+        rollSpeed={0.01} 
+         /> 
     <Suspense fallback={null}>
     <ambientLight />
      <pointLight position={[10, 10, 10]} />
