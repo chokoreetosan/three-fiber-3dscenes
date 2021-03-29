@@ -26,3 +26,5 @@ yarn-error.log*
 **/src/*.glb
 /public/Textures/
 /src/Textures/
+/src/miscvideo.mov
+/public/miscvideo.mov

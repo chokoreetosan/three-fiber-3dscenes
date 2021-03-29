@@ -47,15 +47,18 @@ function Box(props) {
 
 
 function App() {
-
+  const [clicked, setClicked] = useState(false)
 
 
 
   return (
+    
       <Main>
-         <Canvas>
+        
+        {clicked ? <Canvas>
          <Scene />
-           </Canvas>  
+           </Canvas> : <button onClick={()=>{setClicked(true)}} >asdf</button> }
+
       </Main>
 
   );

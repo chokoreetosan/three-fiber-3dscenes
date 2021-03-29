@@ -59,7 +59,7 @@ return (
     <ambientLight />
      <pointLight position={[10, 10, 10]} />
      <Plane position={[0,-7,0]}/>
-     {crates}
+     {/* {crates} */}
     </Suspense>
 </>
 
