@@ -3,7 +3,7 @@ import { Canvas, useFrame, useLoader,useThree,useResource,extend } from 'react-t
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 import {useRef,useState, Suspense,useEffect} from 'react'
 import Crate from './Crate'
-import Plane from './Plane'
+import Wall from './Wall'
 import styled from 'styled-components';
 import {PerspectiveCamera, WebGLRenderer} from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -52,13 +52,22 @@ return (
   ref={controlsref}
    autoForward={false}
         dragToLook={true}
-        movementSpeed={5.0}
-        rollSpeed={0.5} 
+        movementSpeed={50.0}
+        rollSpeed={1.5} 
          /> 
     <Suspense fallback={null}>
     <ambientLight />
      <pointLight position={[10, 10, 10]} />
-     <Plane position={[0,-7,0]}/>
+     {/* Floor */}
+     <Wall position={[0,-7,0]} orientation={[Math.PI/2,0,0]} size={[60,60,1]}/>
+     {/* Roof*/}
+     <Wall position={[0,53,0]} orientation={[Math.PI/2,0,Math.PI]} size={[60,60,1]}/>
+     {/* Left Wall*/ }
+     <Wall position={[-30,23,0]} orientation={[(Math.PI),Math.PI/2,0]} size={[60,60,1]}/>
+     {/* Right Wall*/ }
+     <Wall position={[30,23,0]} orientation={[(Math.PI),Math.PI/2,0]} size={[60,60,1]}/>
+
+     <Wall position={[0,23,-30]} orientation={[(Math.PI),0,0]} size={[60,60,1]}/>
      {/* {crates} */}
     </Suspense>
 </>
