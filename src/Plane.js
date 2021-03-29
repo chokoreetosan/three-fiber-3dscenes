@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react'
 
 import { useGLTF, useTexture } from '@react-three/drei'
 import {DoubleSide, Matrix4} from 'three'
-import {  MeshStandardMaterial, PlaneGeometry, TextureLoader } from 'three';
+import {  MeshStandardMaterial, PlaneGeometry, TextureLoader, Euler } from 'three';
 import Diffuse from './Textures/Diffuse.jpg'
 export default function Plane(props) {
   const group = useRef()
@@ -14,13 +14,9 @@ export default function Plane(props) {
   //     normalMap:texture
   // })
   const floor = useRef();
-  let transformation = new Matrix4();
-  transformation.set(        
-    1,0,0,0,
-    0,1,0,0,
-    0,0,1,0,
-    0,0,0,1
-    )
+  let euler = new Euler(Math.PI/2,0,0)
+  let transformation = new Matrix4;
+  transformation.makeRotationFromEuler(euler)
   useEffect(()=>{
     floor.current.applyMatrix4(transformation)
   },[floor])
@@ -28,7 +24,7 @@ export default function Plane(props) {
   // const plane = new Mesh(geometry,material);
   return (
     <mesh {...props}>
-        <planeGeometry ref={floor} attach={'geometry'} args={[10,10,10]} />
+        <planeGeometry ref={floor} attach={'geometry'} args={[100,100,100]} />
         <meshBasicMaterial map={texture} skinning={true} side={DoubleSide}/>
     </mesh>
   )

@@ -34,10 +34,10 @@ const Scene = () => {
   const cameraref = useRef();
   const controlsref= useRef();
   let crates = [];
-  for(let x = -3;x < 3;x++){
-    for(let y = -3;y < 3;y++){
+  for(let x = -1;x < 3;x++){
+    for(let y = -1;y < 3;y++){
     crates.push(
-      <Crate key={x + y*6} position={[(x*3),(y*3),-5]}/>
+      <Crate key={x + y*6} position={[(x*4),(y*4),-10]}/>
     )
     }
   }
@@ -58,7 +58,7 @@ return (
     <Suspense fallback={null}>
     <ambientLight />
      <pointLight position={[10, 10, 10]} />
-     <Plane position={[0,5,0]}/>
+     <Plane position={[0,-7,0]}/>
      {crates}
     </Suspense>
 </>
