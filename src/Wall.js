@@ -5,7 +5,6 @@ import {useThree} from 'react-three-fiber'
 import { useGLTF, useTexture } from '@react-three/drei'
 import {DoubleSide, Matrix4, VideoTexture} from 'three'
 import {  MeshStandardMaterial, PlaneGeometry, TextureLoader, Euler, LinearFilter, RGBFormat } from 'three';
-import Diffuse from './Textures/Diffuse.jpg'
 export default function Wall(props) {
   const { viewport } = useThree();
   const group = useRef()
@@ -15,11 +14,11 @@ export default function Wall(props) {
   //     normalMap:texture
   // })
   const video = useMemo(() => {
-    console.log('https://www.youtube.com/watch?v=YEU_FIly708');
     const vid = document.createElement("video");
     vid.src = 'miscvideo.mov';
     vid.crossOrigin = "anonymous";
     vid.play();
+    vid.volume = 0.005
     return vid;
   }, []);
   const texture = useMemo(() => {
