@@ -3,7 +3,7 @@ import { Canvas, useFrame, useLoader,useThree,useResource,extend } from 'react-t
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 import {useRef,useState, Suspense,useEffect} from 'react'
 import Crate from './Crate'
-import Chair from './Chair';
+import Plane from './Plane'
 import styled from 'styled-components';
 import {PerspectiveCamera, WebGLRenderer} from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -51,13 +51,14 @@ return (
   <FlyControls 
   ref={controlsref}
    autoForward={false}
-        dragToLook={false}
+        dragToLook={true}
         movementSpeed={5.0}
-        rollSpeed={0.01} 
+        rollSpeed={0.5} 
          /> 
     <Suspense fallback={null}>
     <ambientLight />
      <pointLight position={[10, 10, 10]} />
+     <Plane position={[0,5,0]}/>
      {crates}
     </Suspense>
 </>

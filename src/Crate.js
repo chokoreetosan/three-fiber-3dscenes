@@ -6,14 +6,21 @@ import React, { useRef } from 'react'
 
 import { useGLTF, useTexture } from '@react-three/drei'
 import {useFrame} from 'react-three-fiber'
+import { Euler, Matrix3, Matrix4 } from 'three';
 export default function Model(props) {
 
   const group = useRef()
   const { nodes, materials } = useGLTF('/Crate.glb');
   const crate = useRef();
     useFrame(() => {
-    crate.current.rotation.x = crate.current.rotation.y += 0.01
+    // crate.current.rotation.x = crate.current.rotation.y += 0.01;
+    crate.current.applyMatrix4(rotate)
   })
+  const euler = new Euler(Math.random()*0.02,Math.random()*0.02,Math.random()*0.02);
+  const rotate = new Matrix4;
+  rotate.makeRotationFromEuler(euler);
+
+  
   return (
     <group ref={group} {...props} dispose={null}>
       <mesh ref={crate} material={materials.crate} geometry={nodes.crate.geometry} />
