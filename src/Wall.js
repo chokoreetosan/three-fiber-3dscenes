@@ -6,7 +6,7 @@ import { useGLTF, useTexture } from '@react-three/drei'
 import {DoubleSide, Matrix4, VideoTexture} from 'three'
 import {  MeshStandardMaterial, PlaneGeometry, TextureLoader, Euler, LinearFilter, RGBFormat } from 'three';
 import Diffuse from './Textures/Diffuse.jpg'
-export default function Plane(props) {
+export default function Wall(props) {
   const { viewport } = useThree();
   const group = useRef()
   const geometry = new PlaneGeometry(10,10,10)
@@ -32,7 +32,7 @@ export default function Plane(props) {
   }, [video]);
 
   const floor = useRef();
-  let euler = new Euler(Math.PI/2,0,0)
+  let euler = new Euler(...props.orientation)
   let transformation = new Matrix4;
   transformation.makeRotationFromEuler(euler)
   useEffect(()=>{
@@ -40,8 +40,8 @@ export default function Plane(props) {
   },[floor])
 
   return (
-    <mesh {...props}>
-        <planeBufferGeometry ref={floor} attach={'geometry'} args={[50,50,50]} />
+    <mesh position={props.position}>
+        <planeBufferGeometry ref={floor} attach={'geometry'} args={props.size} />
         <meshBasicMaterial map={texture} skinning={true} side={DoubleSide}/>
         
     </mesh>
